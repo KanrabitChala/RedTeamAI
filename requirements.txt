@@ -6,3 +6,4 @@ pillow
 numpy
 torchattacks
 requests
+matplotlib
