@@ -38,7 +38,7 @@ def train_model():
         loss = criterion(model(images), labels)
         loss.backward()
         optimizer.step()
-        break  # Just 1 batch for instant local setup
+        # break  # Just 1 batch for instant local setup
 
     torch.save(model.state_dict(), "model.pth")
     print("[*] Model saved to model.pth")

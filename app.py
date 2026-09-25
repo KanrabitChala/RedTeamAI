@@ -25,7 +25,11 @@ async def predict(file: UploadFile = File(...)):
     image_bytes = await file.read()
     image = Image.open(io.BytesIO(image_bytes)).convert("L")
     
-    transform = transforms.Compose([transforms.Resize((28, 28)), transforms.ToTensor()])
+    transform = transforms.Compose([
+        transforms.Resize((28, 28)), 
+        transforms.ToTensor(),
+        # transforms.Lambda(lambda x: 1.0 - x)
+    ]) #you can remove'transforms.Lambda(lambda x: 1.0 - x)' I added it to invert the image I will upload
     tensor = transform(image).unsqueeze(0)
 
     with torch.no_grad():
