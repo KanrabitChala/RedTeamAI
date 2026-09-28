@@ -82,8 +82,6 @@ def train_robust_model():
 
         output = model(images)
         loss = criterion(output, labels)
-
-        model.zero_grad()
         loss.backward()
 
         epsilon = 0.3
@@ -132,3 +130,5 @@ if __name__ == "__main__":
         
     # Run only the robust training function so it saves as model.pth
     train_robust_model()
+
+    
