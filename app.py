@@ -18,7 +18,7 @@ def load_model():
 
 @app.get("/")
 def home():
-    return {"status": "online", "vulnerability": "Metadata leakage enabled"}
+    return {"status": "System is running..."}
 
 @app.post("/predict")
 async def predict(file: UploadFile = File(...)):
@@ -36,4 +36,4 @@ async def predict(file: UploadFile = File(...)):
         output = model(tensor)
         pred = torch.argmax(output, dim=1).item()
 
-    return {"predicted_class": pred, "pipeline_info": "Raw model output exposed"}
+    return {"predicted_class": pred}

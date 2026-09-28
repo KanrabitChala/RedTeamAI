@@ -42,6 +42,93 @@ def train_model():
 
     torch.save(model.state_dict(), "model.pth")
     print("[*] Model saved to model.pth")
+    
+#   Adversarial training here
+def train_robust_model():
+    print("[*] Training robust model...")
+
+    transform = transforms.Compose([
+        transforms.ToTensor()
+    ])
+
+    dataset = datasets.MNIST(
+        root="./data",
+        train=True,
+        download=True,
+        transform=transform
+    )
+
+    loader = DataLoader(
+        dataset,
+        batch_size=64,
+        shuffle=True
+    )
+
+    model = SimpleCNN()
+
+    criterion = nn.CrossEntropyLoss()
+
+    optimizer = optim.Adam(
+        model.parameters(),
+        lr=0.001
+    )
+
+    model.train()
+
+    for images, labels in loader:
+
+        # First create adversarial examples
+        images.requires_grad = True
+
+        output = model(images)
+        loss = criterion(output, labels)
+
+        model.zero_grad()
+        loss.backward()
+
+        epsilon = 0.3
+
+        adversarial_images = (
+            images + epsilon * images.grad.sign()
+        )
+
+        adversarial_images = torch.clamp(
+            adversarial_images,
+            0,
+            1
+        )
+
+        # Train the model using adversarial images
+        optimizer.zero_grad()
+
+        adv_output = model(adversarial_images)
+
+        adv_loss = criterion(
+            adv_output,
+            labels
+        )
+
+        adv_loss.backward()
+
+        optimizer.step()
+
+        # break  # Just 1 batch for quick local setup
+
+    # torch.save(
+    #     model.state_dict(),
+    #     "robust_model.pth"
+    # )
+
+    # print("[*] Robust model saved to robust_model.pth")
+    torch.save(model.state_dict(), "model.pth")
+    print("[*] Robust model saved to model.pth")
+  
 
 if __name__ == "__main__":
-    train_model()
+    # train_model()
+    # train_robust_model()
+    if os.path.exists("model.pth"):
+        os.remove("model.pth")
+        
+    # Run only the robust training function so it saves as model.pth
+    train_robust_model()
