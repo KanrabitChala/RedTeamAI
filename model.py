@@ -43,6 +43,8 @@ def train_model():
     torch.save(model.state_dict(), "model.pth")
     print("[*] Model saved to model.pth")
     
+
+
 #   Adversarial training here
 def train_robust_model():
     print("[*] Training robust model...")
@@ -112,21 +114,27 @@ def train_robust_model():
 
         # break  # Just 1 batch for quick local setup
 
-    # torch.save(
-    #     model.state_dict(),
-    #     "robust_model.pth"
-    # )
 
-    # print("[*] Robust model saved to robust_model.pth")
-    torch.save(model.state_dict(), "model.pth")
-    print("[*] Robust model saved to model.pth")
+
+    torch.save(
+        model.state_dict(),
+        "robust_model.pth"
+    )
+
+
+
+    # # print("[*] Robust model saved to robust_model.pth")
+    # torch.save(model.state_dict(), "model.pth")
+    # print("[*] Robust model saved to model.pth")
   
 
 if __name__ == "__main__":
-    # train_model()
-    # train_robust_model()
-    if os.path.exists("model.pth"):
-        os.remove("model.pth")
-        
-    # Run only the robust training function so it saves as model.pth
+
+    train_model()
     train_robust_model()
+
+    # if os.path.exists("model.pth"):
+    #     os.remove("model.pth")
+        
+    # # Run only the robust training function so it saves as model.pth
+    # train_robust_model()

@@ -8,12 +8,12 @@ import torchattacks
 from model import SimpleCNN
 
 
-MODEL_FILE = "robust_model.pth"
+MODEL_FILE = "adversarial_model.pth"
 
 
-def train_robust_model():
+def train_adversarial_model():
 
-    print("[*] Training robust model with PGD...")
+    print("[*] Training adversarial model with PGD...")
 
     device = torch.device("cpu")
     print(f"[*] Using device: {device}")
@@ -82,8 +82,8 @@ def train_robust_model():
         MODEL_FILE
     )
 
-    print(f"[*] Robust model saved to {MODEL_FILE}")
+    print(f"[*] adversarial model saved to {MODEL_FILE}")
 
 
 if __name__ == "__main__":
-    train_robust_model()
+    train_adversarial_model()

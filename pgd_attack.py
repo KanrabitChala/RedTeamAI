@@ -8,7 +8,7 @@ from PIL import Image
 
 
 # Change this to test either model
-MODEL_FILE = "robust_model.pth"#robust_model.pth
+MODEL_FILE = "adversarial_model.pth"#to attack make "model.pth"
 
 # PGD parameters
 EPS = 0.3
@@ -43,7 +43,7 @@ def run_pgd_attack_and_save_images():
     loader = DataLoader(
         dataset,
         batch_size=1,
-        shuffle=True
+        shuffle=True #make 'True' to choose image rondamly
     )
 
     # Find an image that the clean model correctly classifies

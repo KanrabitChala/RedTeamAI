@@ -5,3 +5,35 @@ The purpose:
 3. To fix errors
 4. To generate image
 5. Document format
+
+
+
+
+
+
+
+
+
+
+1. FGSM attack and mitigation
+
+
+2. PGD attack and mitigation
+
+mitigation
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -10,12 +10,12 @@ from PIL import Image
 def run_attack_and_save_images():
     print("[*] Loading model for adversarial attack...")
     model = SimpleCNN()
-    model.load_state_dict(torch.load("model.pth", map_location=torch.device('cpu')))
+    model.load_state_dict(torch.load("robust_model.pth", map_location=torch.device('cpu')))#to see the attack make "model.pth" inplace of "robust_model.pth"
     model.eval()
 
     # Load MNIST test dataset
     dataset = datasets.MNIST(root='./data', train=False, download=True, transform=transforms.ToTensor())
-    loader = DataLoader(dataset, batch_size=1, shuffle=True)
+    loader = DataLoader(dataset, batch_size=1, shuffle=False) #to take image rondamly make shuffle "True".
     images, labels = next(iter(loader))
 
     true_label = labels.item()
@@ -56,3 +56,4 @@ def run_attack_and_save_images():
 
 if __name__ == "__main__":
     run_attack_and_save_images()
+    
