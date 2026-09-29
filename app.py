@@ -37,3 +37,4 @@ async def predict(file: UploadFile = File(...)):
         pred = torch.argmax(output, dim=1).item()
 
     return {"predicted_class": pred}
+    
